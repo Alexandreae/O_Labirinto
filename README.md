@@ -1,4 +1,4 @@
-# O_Labirinto
+# Ponei Invaders 2 O Retorno
 
 https://siredington.itch.io/ponei-invaders-2-o-retorno
 
