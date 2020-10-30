@@ -3,13 +3,13 @@
 ## GDD
 
 ### Identidade do jogo
-Um nobre guerreiro foi aprisionado em um labirinto cheio de monstros. Será que ele vai conseguir derrotar os inimigos e encontrar a saída?
+Você é o último soldado restante dos defensores galáticos. Depois de matar centenas de pôneis alienígenas, sua nave foi destruída, mas você ainda não desistiu. Será que consegue Matar todos os pôneis restantes?
 
 ### Descrição da mecãnica
-Jogo em primeira pessoa, movimentos com WASD e mouse para atacar com espada.
+Jogo em primeira pessoa, movimentos com WASD e mouse para atirar.
 
 ### Características
-Labirinto com paredes simples e monstros que andam aleatóriamente até terem visão do jogador. Requer boa noção espacial do jogador (ou um mapa) para saber por quais caminhos ele ainda não passou.
+Labirinto com paredes simples e monstros que se movem quando avistam o jogador e atiram nele. Requer boa mira e habilidade para desviar do projéteis inimigos.
 
 ### Arte
 Jogo 3D. Orçamento de R$0,00 (triste) e prazo limite de 4 semanas.
@@ -18,15 +18,16 @@ Jogo 3D. Orçamento de R$0,00 (triste) e prazo limite de 4 semanas.
 Fonte dos efeitos sonoros e músicas: RPG MAKER VX ACE.
 
 ### Interface e controles
-Botões WASD para movimentação do personagem. Botão esquerdo do mouse para atacar. HUD simples com uma barra de vida do jogador.
+Botões WASD para movimentação do personagem e mouse para mover a tela. Botão esquerdo do mouse para atacar. HUD simples com vida e munição do jogador.
 
 ### Dificuldade
-A principal dificuldade será encontrar a saída do labirinto.
+A principal dificuldade será sobreviver aos terríveis pôneis alienígenas.
 
 
 ### Personagens
-Guerreiro - Personagem principal
-Monstros
+Soldado - Personagem principal
+Pôneis alienígenas
+Princesa pônei maldita
 
 ### Cronograma
 Encontrar modelos para o personagem e monstros;
