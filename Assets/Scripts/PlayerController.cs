@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 100;
     public GameObject gOver;
-    private bool ded = false;
+    public static bool ded = false;
     public Text hpText;
     public Text ammoText;
     public Animator anim;
@@ -39,46 +40,55 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!ded){
+        if(!GameManager.pause){
+            if(!ded){
 
-            
-            //movimento
-            moveInput = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
-            Vector3 moveHorizontal = -transform.up * moveInput.x;
-            Vector3 moveVertical = transform.right * moveInput.y;
-            theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
+                
+                //movimento
+                moveInput = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
+                Vector3 moveHorizontal = -transform.up * moveInput.x;
+                Vector3 moveVertical = transform.right * moveInput.y;
+                theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
 
-            //camera
-            mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"),Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y,transform.rotation.eulerAngles.z - mouseInput.x);
-            viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f,mouseInput.y,0f));
+                //camera
+                mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"),Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y,transform.rotation.eulerAngles.z - mouseInput.x);
+                //viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f,mouseInput.y,0f));
 
-            //atirar
-            if(Input.GetMouseButtonDown(0)) {
-                if(bulletAmmo>0){
-                    bulletAmmo-=1;
-                    ammoText.text = bulletAmmo.ToString();
-                    Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f,.5f,0f));
-                    RaycastHit hit;
-                    if(Physics.Raycast(ray,out hit)){
-                        Instantiate(bulletImpact,hit.point,transform.rotation);
-                        if(hit.transform.tag == "Monster"){
-                            hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                //atirar
+                if(Input.GetMouseButtonDown(0)) {
+                    if(bulletAmmo>0){
+                        bulletAmmo-=1;
+                        ammoText.text = bulletAmmo.ToString();
+                        Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f,.5f,0f));
+                        RaycastHit hit;
+                        if(Physics.Raycast(ray,out hit)){
+                            Instantiate(bulletImpact,hit.point,transform.rotation);
+                            if(hit.transform.tag == "Monster"){
+                                hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                            }
+                            if(hit.transform.tag == "Boss"){
+                                hit.transform.parent.GetComponent<Boss>().TakeDamage();
+                            }
                         }
-                        if(hit.transform.tag == "Boss"){
-                            hit.transform.parent.GetComponent<Boss>().TakeDamage();
-                        }
+                        gunAnim.SetTrigger("Shoot");
                     }
-                    gunAnim.SetTrigger("Shoot");
                 }
-            }
-            if(moveInput != Vector2.zero){
-                anim.SetBool("moving",true);
+                if(moveInput != Vector2.zero){
+                    anim.SetBool("moving",true);
+                }else{
+                    anim.SetBool("moving",false);
+                }
             }else{
-                anim.SetBool("moving",false);
+                if(Input.GetMouseButtonDown(0)) {
+                    ded = false;
+                    AudioListener.volume = 1;
+                    SceneManager.LoadScene("test2");
+                }
             }
         }
     }
+
 
     public void TakeDamage(int damage){
         currentHealth -= damage;

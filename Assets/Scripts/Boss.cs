@@ -50,6 +50,7 @@ public class Boss : MonoBehaviour
         health--;
         if(health <= 0){
             AudioListener.volume = 0;
+            PlayerController.ded = true;
             victory.SetActive(true);
 
         }

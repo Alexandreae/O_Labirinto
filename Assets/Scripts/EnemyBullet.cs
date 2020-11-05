@@ -11,6 +11,7 @@ public class EnemyBullet : MonoBehaviour
     public Rigidbody2D theRB;
 
     private Vector3 direction;
+    private AudioSource as_audio;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,12 @@ public class EnemyBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
         if(other.tag == "Player"){
             PlayerController.instance.TakeDamage(damage);
-            Destroy(gameObject);
+            as_audio = GetComponent<AudioSource>();
+            as_audio.Play();
+            Invoke("destruir",.5f);
         }
+    }
+    void destruir(){
+        Destroy(gameObject);
     }
 }
